@@ -17,7 +17,7 @@
            Instructions:
         </p>
         <p>
-           Enter in your bid (whole numbers only, no decimals)
+           Enter in your bid (whole numbers only, no decimals!)
         </p>
         <p>
             Select your character from the dropdown
