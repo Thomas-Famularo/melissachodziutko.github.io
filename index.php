@@ -17,6 +17,7 @@
                 # Includes additional helper functions
                 require( 'includes/helpers_smash.php' ) ;
                 # Shows the records in smash
+				#run_smash();
                 show_smash($dbc);
 
 				if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
