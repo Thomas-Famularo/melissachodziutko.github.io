@@ -29,7 +29,10 @@ function show_smash($dbc) {
 			echo '<TR>' ;
             echo '<TD>' . $row['character_name'] . '</TD>' ;
 			echo '<TD>$' . $row['bid'] . '</TD>' ;
-			echo '<TD>' . $row['buyer_name'] . '</TD>' ;
+			if($row['buyer_name']=='None yet')
+				echo '<TD style="color:red">' . $row['buyer_name'] . '</TD>' ;
+			else
+				echo '<TD>' . $row['buyer_name'] . '</TD>' ;
             echo '<TD>' . $row['update_date'] . '</TD>' ;
 			echo '</TR>' ;
 		  }
