@@ -11,24 +11,20 @@
 <body>
 	<center>
         <?php
-                $debug = true;
+                $debug = false;
 				# Includes key dbc functions
                 require( 'includes/connect_db.php' ) ;
                 # Includes additional helper functions
                 require( 'includes/helpers_smash.php' ) ;
-                # Shows the records in smash
-				#run_smash();
-                show_smash($dbc);
 
 				if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') {
 					$id = $_POST['id'];
 					$bid = $_POST['bid'] ;
 					$buyer = $_POST['buyer_name'] ;
-					if ((!empty($id) || !empty($bid) || !empty($buyer))&&($bid>get_bid($dbc, $id))) {
+					if ((!empty($id)||!empty($bid)||!empty($buyer)) && (($bid>get_bid($dbc, $id))||$bid>=2)) { #check that all inputs are valid
 						$result = insert_record($dbc, $id, $bid, $buyer);
 					}
-					else{
-					   #check for valid inputs
+					else{ #check for what is an invalid input
 						if ($id == -1){
 							echo '<p style="color:red">Please pick a character!</p>' ;    
 						} 
@@ -38,15 +34,18 @@
 						else if (empty($buyer)){ 
 							echo '<p style="color:red">Please fill out your name!</p>' ;   
 						}
-						else if ($bid>get_bid($dbc, $id)){
+						else if (($bid<get_bid($dbc, $id))||$bid<2){
 							echo '<p style="color:red">Your bid isn\'t high enough!</p>' ;
 						}
 					}
 				}
+				# Shows the records in smash
+                show_smash($dbc);
 ?>
 		<br>
 		<br>
 		
+		<h1>Place Your Bid:</h1>
 		<form action="index.php" method="POST"> 
 			<table>
 				<tr>
@@ -58,7 +57,7 @@
 					</select></td>
 				</tr>
 				<tr>
-				<td>Enter Your Bid (Whole Dollar Amounts Only):</td><td>$<input type="number" name="bid" min="2"
+				<td>Enter Your Bid (Whole Dollar Amounts Only, Starts at $2):</td><td>$<input type="number" name="bid" min="2"
 					value="<?php if (isset($_POST['bid'])) echo $_POST['bid']; ?>"></p> </td>
 				</tr>
 				<tr>
@@ -71,7 +70,7 @@
 		
 		<p>
 			Questions? Contact Melissa Chodziutko on Facebook or at Game Society. (if u have a problem with the way this website looks meet me outside)
-			<br>(Or, if you want a meaningful conversation, contact Ryan Sheffler instead.) <br><br>
+			<br>(Or, if you want a meaningful conversation, contact Ryan Sheffler instead.) <br><br><br>
 		</p>
 	</center>
 </body>
