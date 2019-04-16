@@ -21,7 +21,7 @@
 					$id = $_POST['id'];
 					$bid = $_POST['bid'] ;
 					$buyer = $_POST['buyer_name'] ;
-					if ((!empty($id)||!empty($bid)||!empty($buyer)) && (($bid>get_bid($dbc, $id))||$bid>=2)) { #check that all inputs are valid
+					if ((!empty($id)||!empty($bid)||!empty($buyer)) && (($bid>get_bid($dbc, $id))&&$bid>=2)) { #check that all inputs are valid
 						$result = insert_record($dbc, $id, $bid, $buyer);
 					}
 					else{ #check for what is an invalid input
