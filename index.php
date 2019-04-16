@@ -47,7 +47,7 @@
 		<br>
 		<br>
 		
-		<form action="index.html" method="POST"> 
+		<form action="index.php" method="POST"> 
 			<table>
 				<tr>
 				<td>Select Your Character:</td>
