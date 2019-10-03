@@ -4,7 +4,7 @@ $debug = false;
 #shows table of characters
 function show_smash($dbc) {
 	# Create a query to get the characters
-	$query = "SELECT bid, update_date, character_name, buyer_name FROM smash" ;
+	$query = "SELECT bid, character_name, buyer_name FROM smash" ;
 
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
@@ -12,29 +12,31 @@ function show_smash($dbc) {
 	# Show results
 	if( $results )
 	{
+		$counter=0;
   		# But...wait until we know the query succeed before
   		# rendering the table start.
-  		 echo '<H1>Current Listings:</H1>' ;
+  		echo '<H1>Current Listings:</H1>' ;
+		 
 		echo '<TABLE>';
-		  echo '<table border = "1"';
-		  echo '<TR>';
-		  echo '<TH>Character</TH>';
-		  echo '<TH>Highest bid</TH>';
-		  echo '<TH>Highest Bidder</TH>';
-          echo '<TH>Last Bid Time</TH>';
-		  echo '</TR>';
-		  # For each row result, generate a table row
-		  while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) )
-          {
-			echo '<TR>' ;
-            echo '<TD>' . $row['character_name'] . '</TD>' ;
-			echo '<TD>$' . $row['bid'] . '</TD>' ;
-			if($row['buyer_name']=='None yet')
-				echo '<TD style="color:red">' . $row['buyer_name'] . '</TD>' ;
+		echo '<table border = "1"';
+		echo '<TR>';
+		# For each row result, generate a table row
+		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
+			echo '<TD>';	//Create a new table segment		
+			$counter=$counter+1; //Increment counter
+			echo '<img src="/edsa-Smash/icons/'.$row['character_name'].'HeadSSBUWebsite.png" style="width:128px;height:128px;">'; //Show character head icon
+            echo '<p>' . $row['character_name'] . '</p>' ; //Show character name
+			echo '<p>$' . $row['bid'] . '</p>' ; //Show the current bid
+			if($row['buyer_name']=='None yet') //Show current buyer (in red if there's none)
+				echo '<p style="color:red">' . $row['buyer_name'] . '</p>' ;
 			else
-				echo '<TD>' . $row['buyer_name'] . '</TD>' ;
-            echo '<TD>' . $row['update_date'] . '</TD>' ;
-			echo '</TR>' ;
+				echo '<p>' . $row['buyer_name'] . '</p>' ;
+			echo '</TD>';
+			if($counter==6){
+				echo '</TR>' ;
+				echo '<TR>';
+				$counter=0;
+			}
 		  }
 		  # End the table
 		  echo '</TABLE>';
