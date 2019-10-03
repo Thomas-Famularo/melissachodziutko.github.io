@@ -20,6 +20,7 @@ create table if not exists smash
 
 insert into smash (bid, update_date, character_name, buyer_name)
 values (0, Now(), "Bayonetta", "None yet"),
+(0, Now(), "Banjo & Kazooie", "None yet"),
 (0, Now(), "Bowser", "None yet"),
 (0, Now(), "Bowser Jr.", "None yet"),
 (0, Now(), "Captain Falcon", "None yet"),
@@ -37,11 +38,12 @@ values (0, Now(), "Bayonetta", "None yet"),
 (0, Now(), "Fox", "None yet"),
 (0, Now(), "Ganondorf", "None yet"),
 (0, Now(), "Greninja", "None yet"),
+(0, Now(), "Hero", "None yet"),
 (0, Now(), "Ice Climbers", "None yet"),
 (0, Now(), "Ike", "None yet"),
 (0, Now(), "Incineroar", "None yet"),
 (0, Now(), "Jigglypuff", "None yet"),
-#(0, Now(), "Joker", "None yet"),
+(0, Now(), "Joker", "None yet"),
 (0, Now(), "Ken", "None yet"),
 (0, Now(), "King Dedede", "None yet"),
 (0, Now(), "King K. Rool", "None yet"),
@@ -90,6 +92,7 @@ values (0, Now(), "Bayonetta", "None yet"),
 (0, Now(), "Young Link", "None yet"),
 (0, Now(), "Zelda", "None yet"),
 (0, Now(), "Zero Suit Samus", "None yet"),
+(0, Now(), "sans", "None yet"),
 (0, Now(), "RANDOM CHARACTER", "None yet");
 
 SELECT * FROM smash;
