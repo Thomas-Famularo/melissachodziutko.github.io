@@ -96,11 +96,12 @@ body, html {
     font-family: Arial, Helvetica, sans-serif;
      color: white;
         font-size: 15px;
-    background:  darkslategray;
+    background:  #303030;
 }
 
 .hero-image {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("mural.jpg");
+  background-color: #303030;
+  background-image: linear-gradient(to bottom, rgba(50, 50, 50, 0.2), 95%, rgba(30, 30, 30, 1)), url("mural.jpg");
   height: 50%;
   background-position: center;
   background-repeat: no-repeat;

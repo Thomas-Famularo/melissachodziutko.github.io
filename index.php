@@ -21,7 +21,8 @@
 					$id = $_POST['id'];
 					$bid = $_POST['bid'] ;
 					$buyer = $_POST['buyer_name'] ;
-					if ((!empty($id)||!empty($bid)||!empty($buyer)) && (($bid>get_bid($dbc, $id))&&$bid>=2)) { #check that all inputs are valid
+					$buyer = filter_var($buyer, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+					if ((!empty($id)||!empty($bid)||!empty($buyer)) && (filter_var($bid, FILTER_VALIDATE_INT)) && (($bid>get_bid($dbc, $id))&&$bid>=2)) { #check that all inputs are valid
 						$result = insert_record($dbc, $id, $bid, $buyer);
 					}
 					else{ #check for what is an invalid input
@@ -42,6 +43,7 @@
 				# Shows the records in smash
                 show_smash($dbc);
 ?>
+		<p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Gunner Missile, Cannon Jump Kick, and Echo Reflector.</p>
 		<br>
 		<br>
 		
