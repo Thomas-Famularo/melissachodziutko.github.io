@@ -43,7 +43,7 @@
 				# Shows the records in smash
                 show_smash($dbc);
 ?>
-		<p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Gunner Missile, Cannon Jump Kick, and Echo Reflector.</p>
+		<p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Flame Pillar, Cannon Jump Kick, and Echo Reflector.</p>
 		<br>
 		<br>
 		
@@ -72,7 +72,7 @@
 		
 		<p>
 			Questions? Contact Melissa Chodziutko on Facebook or at Game Society. (if u have a problem with the way this website looks meet me outside)
-			<br>(Or, if you want a meaningful conversation, contact Ryan Sheffler instead.) <br><br><br>
+			<br>(Or, if you want a meaningful conversation, contact Ryan Sheffler (RYGUY722#7410) instead.) <br><br><br>
 		</p>
 	</center>
 </body>
