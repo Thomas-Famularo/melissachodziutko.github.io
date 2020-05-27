@@ -4,12 +4,15 @@ $debug = false;
 #shows table of characters
 function show_smash($dbc) {
 	# Create a query to get the characters
-	$query = "SELECT bid, character_name, buyer_name FROM smash" ;
+	$query = "SELECT id, bid, character_name, buyer_name FROM smash" ;
 
 	# Execute the query
 	$results = mysqli_query( $dbc , $query ) ;
 	check_results($results) ;
 	# Show results
+	
+	$cells = $_COOKIE['cells'];
+	
 	if( $results )
 	{
 		$counter=0;
@@ -22,17 +25,17 @@ function show_smash($dbc) {
 		echo '<TR>';
 		# For each row result, generate a table row
 		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
-			echo '<TD>';	//Create a new table segment		
+			echo '<TD class="cell">';	//Create a new table segment		
 			$counter=$counter+1; //Increment counter
-			echo '<img src="/edsa-Smash/icons/'.$row['character_name'].'HeadSSBUWebsite.png" style="width:128px;height:128px;">'; //Show character head icon
+			echo '<Button class="charBtn" id="'.$row['id'].'" onClick="charSelected(this.id)"> <img src="/edsa-Smash/icons/'.$row['character_name'].'HeadSSBUWebsite.png" style="width:128px;height:128px;">'; //Show character head icon
             echo '<p>' . $row['character_name'] . '</p>' ; //Show character name
 			echo '<p>$' . $row['bid'] . '</p>' ; //Show the current bid
 			if($row['buyer_name']=='None yet') //Show current buyer (in red if there's none)
 				echo '<p style="color:red">' . $row['buyer_name'] . '</p>' ;
 			else
 				echo '<p>' . $row['buyer_name'] . '</p>' ;
-			echo '</TD>';
-			if($counter==6){
+			echo '</Button> </TD>';
+			if($counter==$cells){
 				echo '</TR>' ;
 				echo '<TR>';
 				$counter=0;
@@ -93,8 +96,29 @@ function get_bid($dbc,$id){
 	}
 }
 
+function get_last_updates($dbc, $id) {
+	$results = mysqli_query($dbc,'SELECT id FROM action ORDER BY id DESC') ; #this could use some work. using max killed everything, so i took an inefficient method instead.
+	check_results($results) ;
+	$row = mysqli_fetch_array( $results , MYSQLI_ASSOC);
+	$maxid = $row['id'];
+	if(($maxid-$id)>0){
+		$query = 'SELECT * FROM action WHERE id=' . ($maxid-$id);
+		show_query($query);
+		$results = mysqli_query($dbc,$query) ;
+		check_results($results) ;
+		return mysqli_fetch_array( $results , MYSQLI_ASSOC);
+	}
+	else{
+		return -1;
+	}
+}
+
 function insert_record($dbc, $id, $bid, $buyer) {
 	$query = 'UPDATE smash SET bid =' . $bid . ', update_date = Now(), buyer_name ="' . $buyer . '" WHERE id=' . $id;
+	show_query($query);
+	$results = mysqli_query($dbc,$query) ;
+	check_results($results) ;
+	$query = 'INSERT INTO action (char_id, char_name, update_date, bid, buyer_name) VALUE (' . $id . ', (SELECT character_name FROM smash WHERE id=' . $id . '), Now(), ' . $bid . ', "' . $buyer . '")';
 	show_query($query);
 	$results = mysqli_query($dbc,$query) ;
 	check_results($results) ;

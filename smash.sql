@@ -23,6 +23,7 @@ values (0, Now(), "Bayonetta", "None yet"),
 (0, Now(), "Banjo & Kazooie", "None yet"),
 (0, Now(), "Bowser", "None yet"),
 (0, Now(), "Bowser Jr.", "None yet"),
+(0, Now(), "Byleth", "None yet"),
 (0, Now(), "Captain Falcon", "None yet"),
 (0, Now(), "Chrom", "None yet"),
 (0, Now(), "Cloud", "None yet"),
@@ -83,7 +84,7 @@ values (0, Now(), "Bayonetta", "None yet"),
 (0, Now(), "Simon", "None yet"),
 (0, Now(), "Snake", "None yet"),
 (0, Now(), "Sonic", "None yet"),
-#(0, Now(), "Terry", "None yet"),
+(0, Now(), "Terry", "None yet"),
 (0, Now(), "Toon Link", "None yet"),
 (0, Now(), "Villager", "None yet"),
 (0, Now(), "Wario", "None yet"),
@@ -97,3 +98,17 @@ values (0, Now(), "Bayonetta", "None yet"),
 (0, Now(), "RANDOM", "None yet");
 
 SELECT * FROM smash;
+
+drop table if exists action;
+create table if not exists action
+(
+	id INT AUTO_INCREMENT,
+	char_id INT NOT NULL,
+	char_name TEXT NOT NULL,
+	update_date DATETIME NOT NULL,
+	bid INT NOT NULL,
+	buyer_name TEXT NOT NULL,
+	PRIMARY KEY (id)
+);
+
+SELECT * FROM action;
