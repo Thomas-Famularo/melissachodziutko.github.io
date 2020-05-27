@@ -11,14 +11,17 @@
 	</script>
 	<title>Marist Smash Chartiy Tournament Signup</title>
 	<link href="https://my.marist.edu/myMarist62-theme/images/favicon.ico" rel="Shortcut Icon">
-	<div class="hero-image">
-		<link rel="stylesheet" href="overall.css">
-		<div class="hero-text">
+	<link rel="stylesheet" href="overall.css">
+</head>
+<body>
+	<div class="header" id="hd">
+		<div class="header-actor header-overlay"></div>
+		<div class="header-actor header-image">
+		</div>
+		<div class="header-actor header-text">
 			<h1>Smash Bids</h1>
 		</div>
 	</div>
-</head>
-<body>
 	<center>
         <?php
                 $debug = false;
@@ -53,7 +56,7 @@
 				}
 				
 				# Shows a ticker of up to the past 5 transactions
-				echo '<div class="ticker" id="ticker">';
+				echo '<div class="ticker" id="ticker"> <br>';
 				echo '<script src="includes/ticker.js"></script>';
 				echo '<script> ';
 				echo 'placeText(' . json_encode(get_last_updates($dbc,0)) . ', ' 
@@ -63,15 +66,24 @@
 				. json_encode(get_last_updates($dbc,4)) . '); ';
 				echo 'scrollDiv_init();';
 				echo '</script>';
-				echo 'a<br>b<br>c<br>d<br>e<br>f<br>g<br>h<br>i<br>j<br>k<br>l<br>m<br>n<br>o<br>p<br>q<br>r<br>s<br>t<br>u<br>v<br>w<br>x<br>y<br>z</div>';
+				echo '</div>';
 				
 				# Shows the records in smash
+				echo '<div class="main">';
                 show_smash($dbc);
 ?>
 		<p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Flame Pillar, Cannon Jump Kick, and Echo Reflector.</p>
 		<br>
 		<br>
-		
+		</div>
+		<script type="text/javascript">
+			var header = document.getElementById("hd");
+			var main = document.getElementsByClassName("main")[0];
+			console.log(window.scrollY+", "+header.scrollHeight);
+			if(window.scrollY<header.scrollHeight){
+				main.style.animation="2s ease-out 0s 1 slideInFromBottom";
+			}
+		</script>
 		
 		<div id="bidModal" class="modal">
 			<div class="mod-content">
@@ -102,7 +114,7 @@
 			</div>
 		</div>
 		
-			<script src="includes/modal.js"></script>
+		<script src="includes/modal.js"></script>
 		
 		<p>
 			Questions? Contact Melissa Chodziutko on Facebook or at Game Society. (if u have a problem with the way this website looks meet me outside)

@@ -1,6 +1,8 @@
 var ScrollRate = 10000;
 var LineHeight = 35;
 var smscrcounter = 0;
+var firstit = true;
+var Smooth; var Scroll;
 const normLines = ["[buyer_name] bid $[bid] on [char_name].", "[char_name] is now worth $[bid]!"];
 var ticker = document.getElementById("ticker");
 var row1;
@@ -18,7 +20,11 @@ function placeText(r1, r2, r3, r4, r5) {
 	row5=r5;
 	//row1.forEach(element => console.log(element));
 	if(row1==-1){
-		console.log("There are no bids yet. Be the first to bid!");
+		console.log("No bids found.");
+		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode("There are no bids yet. Be the first to bid!")));
+		ticker.appendChild(document.createElement("br"));
+		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode("There are no bids yet. Be the first to bid!")));
+		ticker.appendChild(document.createElement("br"));
 		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode("There are no bids yet. Be the first to bid!")));
 	}
 	else{
@@ -40,38 +46,50 @@ function modifyText(textLine, row){
 
 function scrollDiv_init(){
 	console.log("began/restarted scrolling");
-     ReachedMaxScroll = false;
-     ticker.scrollTop = 0;
-     PreviousScrollTop  = 0;    
-     ScrollInterval = setInterval('scrollDiv()', ScrollRate);
+    ReachedMaxScroll = false;
+    ticker.scrollTop = 0;
+    PreviousScrollTop  = 0;
+	smscrcounter=0;
+	if(firstit){
+		Scroll = setTimeout('scrollDiv()', 1000);
+		firstit=false;
+	}
+	else{
+		ticker.scrollTop += LineHeight;
+		PreviousScrollTop  += LineHeight;
+		scrollDiv();
+		Scroll = setTimeout('scrollDiv()', ScrollRate+(50*LineHeight));
+	}
 }
 
 function scrollDiv() {
-     if (!ReachedMaxScroll) {
-          Smooth = setInterval('smoothScroll()', 50);
-     }
+    if (!ReachedMaxScroll) {
+        Smooth = setInterval('smoothScroll()', 50);
+		Scroll = -1;
+    }
 	 else{
-		clearInterval(ScrollInterval);
-		 scrollDiv_init();
+		clearInterval(Smooth);
+		scrollDiv_init();
 	 }
 }
 
 function smoothScroll(){
     ticker.scrollTop = PreviousScrollTop;
-    PreviousScrollTop++;
-    ReachedMaxScroll = ticker.scrollTop >= (ticker.scrollHeight - ticker.offsetHeight);
-	smscrcounter++
 	if(smscrcounter>=LineHeight){
-		smscrcounter=0;
 		clearInterval(Smooth);
+		smscrcounter=0;
+		console.log(ticker.scrollTop+", "+ticker.scrollHeight);
+		ReachedMaxScroll = (ticker.scrollTop + LineHeight) > (ticker.scrollHeight - ticker.offsetHeight);
+		if(Scroll==-1){
+			Scroll = setTimeout('scrollDiv()', ScrollRate);
+		}
 	}
-}
-
-function pauseDiv() {
-     clearInterval(ScrollInterval);
-}
-
-function resumeDiv() {
-     PreviousScrollTop = ticker.scrollTop;
-     ScrollInterval    = setInterval('scrollDiv()', ScrollRate);
+	else if(smscrcounter<5||smscrcounter>(LineHeight-5)){
+		PreviousScrollTop++;
+		smscrcounter++;
+	}
+	else{
+		PreviousScrollTop+=2;
+		smscrcounter+=2;
+	}
 }
