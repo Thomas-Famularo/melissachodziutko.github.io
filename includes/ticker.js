@@ -28,19 +28,28 @@ function placeText(r1, r2, r3, r4, r5) {
 		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode("There are no bids yet. Be the first to bid!")));
 	}
 	else{
-		var textLine=normLines[Math.floor(Math.random() * normLines.length)];
-		textLine=modifyText(textLine, row1);
-		document.createElement("p").appendChild(document.createTextNode(textLine));
+		var firtextLine=normLines[Math.floor(Math.random() * normLines.length)];
+		firtextLine=modifyText(firtextLine, row1);
+		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(firtextLine)));
+		ticker.appendChild(document.createElement("br"));
+		
+		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(firtextLine)));
+		ticker.appendChild(document.createElement("br"));
 	}
 }
 
 function modifyText(textLine, row){
+	if(textLine.includes("[update_date]")){
+		textLine=textLine.replace("[update_date]",row['update_date']);
+	}
+	else{
+		textLine=row['update_date']+" - "+textLine;
+	}
 	textLine=textLine.replace("[id]",row['id']);
-	textLine=textLine.replace("[char_id]",row[1]);
-	textLine=textLine.replace("[char_name]",row[2]);
-	textLine=textLine.replace("[update_date]",row[3]);
-	textLine=textLine.replace("[bid]",row[4]);
-	textLine=textLine.replace("[buyer_name]",row[5]);
+	textLine=textLine.replace("[char_id]",row['char_id']);
+	textLine=textLine.replace("[char_name]",row['char_name']);
+	textLine=textLine.replace("[bid]",row['bid']);
+	textLine=textLine.replace("[buyer_name]",row['buyer_name']);
 	return textLine;
 }
 
