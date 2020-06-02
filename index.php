@@ -2,12 +2,14 @@
 <html>
 <head>
 	<script type="text/javascript">
-		var cells = (window.innerWidth-400)/200;
+		var cells;
+		cells = (window.innerWidth-400)/200;
 		cells=Math.floor(cells);
 		if(cells<2) {cells=2;}
 		console.log(cells);
 		document.cookie = "cells=" + cells;
-		if(cells!=<?php echo $_COOKIE['cells']; ?>){ location.reload(); }
+		var phpcells=<?php if(isset($_COOKIE['cells'])){echo $_COOKIE['cells'];} else{echo -1;} ?>;
+		if(cells!=phpcells){ location.reload();}
 	</script>
 	<title>Marist Smash Chartiy Tournament Signup</title>
 	<link href="https://my.marist.edu/myMarist62-theme/images/favicon.ico" rel="Shortcut Icon">

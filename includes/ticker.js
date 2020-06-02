@@ -1,4 +1,4 @@
-var ScrollRate = 10000;
+var ScrollRate = 7000;
 var LineHeight = 35;
 var smscrcounter = 0;
 var firstit = true;
@@ -24,14 +24,37 @@ function placeText(r1, r2, r3, r4, r5) {
 		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode("There are no bids yet. Be the first to bid!")));
 		ticker.appendChild(document.createElement("br"));
 		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode("There are no bids yet. Be the first to bid!")));
-		ticker.appendChild(document.createElement("br"));
-		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode("There are no bids yet. Be the first to bid!")));
 	}
 	else{
+		console.log("Bids found.");
 		var firtextLine=normLines[Math.floor(Math.random() * normLines.length)];
 		firtextLine=modifyText(firtextLine, row1);
 		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(firtextLine)));
 		ticker.appendChild(document.createElement("br"));
+		if(row2!=-1){
+			var textLine=normLines[Math.floor(Math.random() * normLines.length)];
+			textLine=modifyText(textLine, row2);
+			ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(textLine)));
+			ticker.appendChild(document.createElement("br"));
+			if(row3!=-1){
+				var textLine=normLines[Math.floor(Math.random() * normLines.length)];
+				textLine=modifyText(textLine, row3);
+				ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(textLine)));
+				ticker.appendChild(document.createElement("br"));
+				if(row4!=-1){
+					var textLine=normLines[Math.floor(Math.random() * normLines.length)];
+					textLine=modifyText(textLine, row4);
+					ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(textLine)));
+					ticker.appendChild(document.createElement("br"));
+					if(row5!=-1){
+						var textLine=normLines[Math.floor(Math.random() * normLines.length)];
+						textLine=modifyText(textLine, row5);
+						ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(textLine)));
+						ticker.appendChild(document.createElement("br"));
+					}
+				}
+			}
+		}
 		
 		ticker.appendChild(document.createElement("p").appendChild(document.createTextNode(firtextLine)));
 		ticker.appendChild(document.createElement("br"));
