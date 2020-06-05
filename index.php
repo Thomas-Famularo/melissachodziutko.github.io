@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		var cells;
 		cells = (window.innerWidth-400)/200;
 		cells=Math.floor(cells);
@@ -10,7 +10,7 @@
 		document.cookie = "cells=" + cells;
 		var phpcells=<?php if(isset($_COOKIE['cells'])){echo $_COOKIE['cells'];} else{echo -1;} ?>;
 		if(cells!=phpcells){ location.reload();}
-	</script>
+	</script>-->
 	<title>Marist Smash Chartiy Tournament Signup</title>
 	<link href="https://my.marist.edu/myMarist62-theme/images/favicon.ico" rel="Shortcut Icon">
 	<link rel="stylesheet" href="overall.css">
@@ -57,35 +57,52 @@
 					}
 				}
 				
-				# Shows a ticker of up to the past 5 transactions
-				echo '<div class="ticker" id="ticker"> <br>';
-				echo '<script src="includes/ticker.js"></script>';
-				echo '<script> ';
-				echo 'placeText(' . json_encode(get_last_updates($dbc,0)) . ', ' 
-				. json_encode(get_last_updates($dbc,1)) . ', '
-				. json_encode(get_last_updates($dbc,2)) . ', '
-				. json_encode(get_last_updates($dbc,3)) . ', '
-				. json_encode(get_last_updates($dbc,4)) . '); ';
-				echo 'scrollDiv_init();';
-				echo '</script>';
-				echo '</div>';
-				
-				# Shows the records in smash
-				echo '<div class="main">';
-                show_smash($dbc);
 ?>
-		<p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Flame Pillar, Cannon Jump Kick, and Echo Reflector.</p>
-		<br>
-		<br>
+				
+		<!--Shows a ticker of up to the past 5 transactions-->
+		<div class="ticker" id="ticker"> <br>
+			<script src="includes/ticker.js"></script>
+			<script>
+				placeText(<?php echo json_encode(get_last_updates($dbc,0)) . ', ' 
+					. json_encode(get_last_updates($dbc,1)) . ', '
+					. json_encode(get_last_updates($dbc,2)) . ', '
+					. json_encode(get_last_updates($dbc,3)) . ', '
+					. json_encode(get_last_updates($dbc,4)) ?> );
+				scrollDiv_init();
+			</script>
 		</div>
-		<script type="text/javascript">
-			var header = document.getElementById("hd");
-			var main = document.getElementsByClassName("main")[0];
-			console.log(window.scrollY+", "+header.scrollHeight);
-			if(window.scrollY<header.scrollHeight){
-				main.style.animation="2s ease-out 0s 1 slideInFromBottom";
-			}
-		</script>
+		
+		<script type="text/javascript" src="includes/tabswitcher.js"></script>
+		<div class="tab">
+			<button class="tablinks" id="t1" onclick="openTab(event, 'bids')">Bids</button>
+			<button class="tablinks" id="t2" onclick="openTab(event, 'history')">History</button>
+		</div>
+		
+		<div class="main" id="bids">
+			<H1>Current Listings:</H1>
+			<table border="1" id="smtable">
+				<script src="includes/bidtable.js"></script>
+				<script>
+					generateTable(<?php echo json_encode(get_smash($dbc));?>);
+				</script>
+			</table>
+					
+			<p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Flame Pillar, Cannon Jump Kick, and Echo Reflector.</p>
+			<br>
+			<br>
+		</div>
+		
+		<div class="main" id="history">
+			<H1>Past Updates:</H1>
+			<table class="htable" id="htable">
+				<script src="includes/histtable.js"></script>
+				<script>
+					generateHTable(<?php echo json_encode(get_action($dbc));?>);
+				</script>
+			</table>
+		</div>
+		
+		<script> document.getElementById("t1").click(); </script>
 		
 		<div id="bidModal" class="modal">
 			<div class="mod-content">
@@ -98,8 +115,8 @@
 							<td> <input type="number" name="id" id="charInput" value="-1">
 							<!--<select name="id">
 								<option value="-1"selected>Choose one...</option>
-								<?php if (isset($_POST['id'])) $selid=$_POST['id'];
-								get_smash_dropdown($dbc,$selid)?>
+								<?php #if (isset($_POST['id'])) $selid=$_POST['id'];
+								#get_smash_dropdown($dbc,$selid)?>
 							</select>--></td>
 						</tr>
 						<tr>
@@ -118,9 +135,8 @@
 		
 		<script src="includes/modal.js"></script>
 		
-		<p>
-			Questions? Contact Melissa Chodziutko on Facebook or at Game Society. (if u have a problem with the way this website looks meet me outside)
-			<br>(Or, if you want a meaningful conversation, contact Ryan Sheffler (RYGUY722#7410) instead.) <br><br><br>
+		<p>Issues? Questions?
+			<br>Contact Ryan Sheffler (Email: Ryan.Sheffler1@marist.edu, Discord:RYGUY722#7410)<br><br><br>
 		</p>
 	</center>
 </body>

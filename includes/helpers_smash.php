@@ -48,6 +48,57 @@ function show_smash($dbc) {
     }
 }
 
+function get_smash($dbc) {
+	# Create a query to get the characters
+	$query = "SELECT id, bid, character_name, buyer_name FROM smash" ;
+
+	# Execute the query
+	$results = mysqli_query( $dbc , $query ) ;
+	check_results($results) ;
+	# Compile results
+	
+	if( $results )
+	{
+  		# But...wait until we know the query succeed before
+  		# rendering the table start.
+		$rowarr=array();
+		# For each row result, generate a table row
+		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
+			array_push($rowarr, $row);
+		}
+		return $rowarr;
+		# Free up the results in memory
+		mysqli_free_result( $results ) ;
+    }
+}
+
+function get_action($dbc) {
+	# Create a query to get all previous transactions
+	$query = "SELECT id, bid, char_name, buyer_name, update_date FROM action ORDER BY id DESC" ;
+
+	# Execute the query
+	$results = mysqli_query( $dbc , $query ) ;
+	check_results($results) ;
+	# Compile results
+	
+	if( $results )
+	{
+  		# But...wait until we know the query succeed before
+  		# rendering the table start.
+		$rowarr=array();
+		# For each row result, generate a table row
+		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
+			array_push($rowarr, $row);
+		}
+		return $rowarr;
+		# Free up the results in memory
+		mysqli_free_result( $results ) ;
+    }
+	else{
+		return -1;
+	}
+}
+
 #Function to show all the characters from the smash table, formatted to fill a dropdown box.
 function get_smash_dropdown($dbc, $selectedid) {
 	# Create a query to get the character name and id from the smash table

@@ -1,9 +1,9 @@
+const normLines = ["[buyer_name] bid $[bid] on [char_name].", "[char_name] is now worth $[bid]!"];
 var ScrollRate = 7000;
 var LineHeight = 35;
 var smscrcounter = 0;
 var firstit = true;
 var Smooth; var Scroll;
-const normLines = ["[buyer_name] bid $[bid] on [char_name].", "[char_name] is now worth $[bid]!"];
 var ticker = document.getElementById("ticker");
 var row1;
 var row2;
@@ -101,6 +101,7 @@ function scrollDiv() {
     }
 	 else{
 		clearInterval(Smooth);
+		clearTimeout(Scroll);
 		scrollDiv_init();
 	 }
 }
