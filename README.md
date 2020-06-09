@@ -19,5 +19,4 @@ I tried to keep adding a new character a very simple affair. All that needs to b
 This step is extremely simple. Just source the [smash.sql](smash.sql) file. It will automatically delete the entire database and recreate it. ***Only do this before or after club members are done bidding. It will delete all bids. Use a simple `ADD` or `UPDATE` query if you need to modify the tables while the bidding is open.***
 
 ## Known Bugs (and Notes on them)
-- The rolling message box will speed up over time. Based on console messages, this appears to be due to the code setting timeout functions multiple times within the smoothScroll() method of [ticker.js](includes/ticker.js). Still looking for a solution.
-- Sometimes, characters will be lost from the top of the table when frequently resizing the page. They normally return when resizing from the smallest size to the smallest size, but disappear again when maximizing. Not completely sure what causes this, but it may be that the `window resize` event is happening too often that the code cannot execute properly.
+- None right now! Well, the rolling message box may have issues on smaller screens (like a portrait-orientation phones), but it hasn't been tested yet.

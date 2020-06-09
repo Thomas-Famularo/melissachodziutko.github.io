@@ -1,12 +1,14 @@
 #List Smash Ultimate characters
+#This file can be used to reset the database and tables
 #Authors: Melissa Chodziutko, Ryan Sheffler
 #Version 1.0
 
-#create a database and use it
+#This creates the database, or deletes and recreates it if it already exists
 drop database if exists site_db;
 create database if not exists site_db;
 use site_db;
 
+#This creates the table to hold all Smash characters, or deletes and recreates it if it already exists
 drop table if exists smash;
 create table if not exists smash
 (
@@ -18,6 +20,8 @@ create table if not exists smash
 	PRIMARY KEY (id)
 );
 
+#The smash table is fixed. New bids only modify the records that are initialized here, never creating a new one.
+#These values are initialized in alphabetical order. At no point does the table sort itself, it simply is ordered by the auto-incrementing ID of each entry.
 insert into smash (bid, update_date, character_name, buyer_name)
 values (0, Now(), "Bayonetta", "None yet"),
 (0, Now(), "Banjo & Kazooie", "None yet"),
@@ -97,8 +101,10 @@ values (0, Now(), "Bayonetta", "None yet"),
 (0, Now(), "sans", "None yet"),
 (0, Now(), "RANDOM", "None yet");
 
+#Just as a test, this prints the contents of the newly created table.
 SELECT * FROM smash;
 
+#This creates the table to store bidding transactions, or deletes and recreates it if it already exists
 drop table if exists action;
 create table if not exists action
 (

@@ -9,11 +9,12 @@ function generateTable(newRes){
 	setTableSize(); //Dynamically size to the user's screen
 	//dbRes.forEach(element=>console.log(element));
 	dbRes.forEach(generateCell); //For each character returned from the SQL query, create a table cell
-	window.addEventListener("resize", regenerateTable);
+	cellcount=0;
+	window.addEventListener("resize", regenerateTable); //If the window is resized, then recreate the table
 }
 
-function generateCell(charInfo){
-	if(cellcount==0){
+function generateCell(charInfo){ //This function creates a table cell for the item passed into it
+	if(cellcount==0){ //If this is the start of the new row, create and place the table row item into the table
 		currrow=document.createElement("tr");
 		table.appendChild(currrow);
 	}
@@ -50,13 +51,13 @@ function generateCell(charInfo){
 	currrow.appendChild(celltd); //Add the button into the table
 	cellcount++;
 	
-	if(cellcount>=cells){
+	if(cellcount>=cells){ //If we've reached the cell cap for this row, reset the counter to make a new row when this function is run again
 		cellcount=0;
 	}
 	//console.log("Generated a bid table record for "+charInfo['character_name']);
 }
 
-function setTableSize(){
+function setTableSize(){ //This checks the window's horizontal size, then sets the variable cells to how many cells the table should have per row
 	var prevcells=cells;
 	cells = (window.innerWidth-400)/200;
 	cells=Math.floor(cells);
@@ -65,10 +66,11 @@ function setTableSize(){
 	return prevcells==cells;
 }
 
-function regenerateTable(){
+function regenerateTable(){ //This clears and regenerates the character table
 	console.log("page resized");
 	if(!setTableSize()){
 		table.innerHTML="";
 		dbRes.forEach(generateCell);
+		cellcount=0;
 	}
 }

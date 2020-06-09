@@ -1,8 +1,8 @@
+//If I'm honest, most of this code comes from W3Schools
 function openTab(evt, tabName) {
-	// Declare all variables
 	var i, tabcontent, tablinks;
 
-	// Get all elements with class="tabcontent" and hide them
+	// Get all elements with class="tabcontent" and hide them (Both tabs are hidden by default)
 	tabcontent = document.getElementsByClassName("main");
 	for (i = 0; i < tabcontent.length; i++) {
 		tabcontent[i].style.display = "none";
@@ -18,6 +18,8 @@ function openTab(evt, tabName) {
 	document.getElementById(tabName).style.display = "block";
 	evt.currentTarget.className += " active ";
 	
+	//This gives the tables their slide in animation.
+	//There are issues where the page will force a scroll if the animation plays while only that div is on screen, so if the user is below a certain point (which is unlikely without a refresh), it will simply pop in.
 	var header = document.getElementById("hd");
 	var main = document.getElementsByClassName("main");
 	console.log(window.scrollY+", "+header.scrollHeight);

@@ -2,7 +2,7 @@ var htable=document.getElementById("htable");
 var hdbRes;
 
 function generateHTable(newRes){
-	if(newRes==-1){
+	if(newRes==-1){ //If there are no results, do not attempt to create a table and simply display a message
 		document.getElementById("history").appendChild(document.createElement("h1").appendChild(document.createTextNode("The bidding has just begun! Be the first to bid!")));
 	}
 	else{
