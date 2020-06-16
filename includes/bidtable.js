@@ -59,7 +59,7 @@ function generateCell(charInfo){ //This function creates a table cell for the it
 
 function setTableSize(){ //This checks the window's horizontal size, then sets the variable cells to how many cells the table should have per row
 	var prevcells=cells;
-	cells = (window.innerWidth-400)/200;
+	cells = (window.innerWidth-200)/200;
 	cells=Math.floor(cells);
 	if(cells<2) {cells=2;}
 	console.log(cells);

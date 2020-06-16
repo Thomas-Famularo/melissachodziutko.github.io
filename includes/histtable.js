@@ -15,7 +15,7 @@ function generateHTable(newRes){
 function generateHRow(charInfo){
 	var charimg = document.createElement("img"); //Create the character icon picture
 	charimg.setAttribute("src", "/edsa-Smash/icons/"+charInfo['char_name']+"HeadSSBUWebsite.png");
-	charimg.setAttribute("style", "width:150px;height:150px;");
+	charimg.setAttribute("style", "width:120px;height:120px;");
 	
 	var udate = document.createElement("p"); //Create the update date text object
 	udate.appendChild(document.createTextNode("At "+charInfo['update_date']+":"));

@@ -83,6 +83,10 @@ function get_action($dbc) {
 	check_results($results) ;
 	if( $results )
 	{
+		if($results->num_rows === 0){ //There *can* be nothing in action, unlike smash. If that's the case, just return a -1.
+			mysqli_free_result( $results ) ;
+			return -1;
+		}
 		$rowarr=array();
 		while ( $row = mysqli_fetch_array( $results , MYSQLI_ASSOC ) ){
 			array_push($rowarr, $row);
@@ -90,10 +94,6 @@ function get_action($dbc) {
   		mysqli_free_result( $results ) ;
 		return $rowarr;
     }
-	else{ //There *can* be nothing in action, unlike smash. If that's the case, just return a -1.
-  		mysqli_free_result( $results ) ;
-		return -1;
-	}
 }
 
 #Function to show all the characters from the smash table, formatted to fill a dropdown box. As of May 2020, this is no longer used, but I figured it might be educational or interesting to see how this site used to work.

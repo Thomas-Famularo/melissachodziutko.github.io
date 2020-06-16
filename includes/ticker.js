@@ -1,6 +1,6 @@
 //This is the function that populates and runs the rolling message box, which I refer to as the "ticker."
-const normLines = ["[buyer_name] bid $[bid] on [char_name].", "[char_name] is now worth $[bid]!"]; //These are the lines that get used to construct phrases for the ticker
-var ScrollRate = 7000; //This is the interval between scrolls in the ticker
+const normLines = ["[buyer_name] bid $[bid] on [char_name].", "[char_name] is now worth $[bid]!", "Thanks to [buyer_name], [char_name] is now worth $[bid]!", "[char_name] now costs $[bid].", "[buyer_name] wants to play [char_name]!", "At [update_date], [buyer_name] put down $[bid] on [char_name].", "[char_name] is now worth $[bid]!", "Look out! [buyer_name] is willing to put down $[bid] for [char_name]!"]; //These are the lines that get used to construct phrases for the ticker
+var ScrollRate = 6000; //This is the interval between scrolls in the ticker
 var LineHeight = 35; //Set this equal to overall.css->.ticker->line-height
 var smscrcounter = 0; 
 var firstit = true; 

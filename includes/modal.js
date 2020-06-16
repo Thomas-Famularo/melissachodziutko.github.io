@@ -6,6 +6,13 @@ var span = document.getElementsByClassName("close")[0];
 function charSelected(charID) {
 	modal.style.display = "block";
 	document.getElementById("charInput").value=charID;
+	charID--;
+	document.getElementById("selectedName").innerHTML=dbRes[charID]['character_name'];
+	var bidup = dbRes[charID]['bid'];
+	bidup++;
+	if(bidup==1){ bidup++; }
+	document.getElementById("bidin").value=bidup;
+	
 }
 
 // When the user clicks on <span> (x), close the modal

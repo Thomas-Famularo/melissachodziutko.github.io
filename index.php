@@ -25,22 +25,7 @@
             require( 'includes/connect_db.php' ) ;
             #Includes additional helper functions
             require( 'includes/helpers_smash.php' ) ;
-		?>
-		
-		<!--This code block establishes the rolling message box, and runs the scripts to create the text messages and begin the scrolling -->
-		<div class="ticker" id="ticker"> <br>
-			<script src="includes/ticker.js"></script>
-			<script>
-				placeText(<?php echo json_encode(get_last_updates($dbc,0)) . ', ' 
-					. json_encode(get_last_updates($dbc,1)) . ', '
-					. json_encode(get_last_updates($dbc,2)) . ', '
-					. json_encode(get_last_updates($dbc,3)) . ', '
-					. json_encode(get_last_updates($dbc,4)) ?> ); //That previous code just grabs info from the SQL database and passes them through to the Javascript in ticker.js
-				scrollDiv_init();
-			</script>
-		</div>
-		
-        <?php
+			
 			#This PHP code block handles user input
 			if ($_SERVER[ 'REQUEST_METHOD' ] == 'POST') { #If the method is POST, then the user just hit the submit button
 				#Next, store the inputs as variables and cleanse them
@@ -54,21 +39,34 @@
 				}
 				else{ #If it's not a valid input, check which is invalid and return a relevant error message to the user. These will appear just below the rolling message box
 					if ($id == -1){
-						echo '<p style="color:red">Something went wrong with character selection! Please let us know!</p>' ;    
+						echo '<script type="text/javascript"> window.alert("Something went wrong with character selection! Please let us know!");</script>' ;    
 					} 
 					else if (empty($bid)){
-						echo '<p style="color:red">Please input a bid!</p>' ;   
+						echo '<script type="text/javascript"> window.alert("There was no bid! Please try again!");</script>' ;   
 					} 
 					else if (empty($buyer)|| $buyer===''){ 
-						echo '<p style="color:red">Please fill out your name!</p>' ;   
+						echo '<script type="text/javascript"> window.alert("The name field was empty or invalid. Please try again!");</script>' ;   
 					}
-					else if (($bid<get_bid($dbc, $id))||$bid<2){
-						echo '<p style="color:red">Your bid isn\'t high enough!</p>' ;
+					else if (($bid<=get_bid($dbc, $id))||$bid<2){
+						echo '<script type="text/javascript"> window.alert("Your bid was too low! Please try again!");</script>' ;
 					}
 				}
 			}
 				
 ?>
+		
+		<!--This code block establishes the rolling message box, and runs the scripts to create the text messages and begin the scrolling -->
+		<div class="ticker" id="ticker"> <br>
+			<script src="includes/ticker.js"></script>
+			<script>
+				placeText(<?php echo json_encode(get_last_updates($dbc,0)) . ', ' 
+					. json_encode(get_last_updates($dbc,1)) . ', '
+					. json_encode(get_last_updates($dbc,2)) . ', '
+					. json_encode(get_last_updates($dbc,3)) . ', '
+					. json_encode(get_last_updates($dbc,4)) ?> ); //That previous code just grabs info from the SQL database and passes them through to the Javascript in ticker.js
+				scrollDiv_init();
+			</script>
+		</div>
 
 		<!--This code sets up the Bid/History buttons at the top. Their behavior is defined in tabswitcher.js -->
 		<script type="text/javascript" src="includes/tabswitcher.js"></script>
@@ -109,6 +107,7 @@
 		<div id="bidModal" class="modal">
 			<div class="mod-content">
 				<span class="close">&times;</span> <!--This is the "X" to close the box -->
+				<h1 style="display:inline">You've chosen: </h1> <h1 style="color:yellow;display:inline;" id="selectedName"></h1>
 				<h1>Place Your Bid:</h1>
 				<form action="index.php" method="POST"> 
 					<table>
@@ -117,12 +116,11 @@
 							<td> <input type="number" name="id" id="charInput" value="-1"></td> 
 						</tr>
 						<tr>
-						<td>Enter Your Bid (Whole Dollar Amounts Only, Starts at $2):</td><td>$<input type="number" name="bid" min="2"
-							value="<?php if (isset($_POST['bid'])) echo $_POST['bid']; ?>"></p> </td> <!--The PHP statements contained within this <input> and the next set the text values to what they were if the user is trying to resubmit -->
+						<td><span title="(Whole Dollar Amounts Only, Starts at $2)">Enter your bid:</span></td><td>$<input type="number" name="bid" id="bidin" min="2"></p> </td>
 						</tr>
 						<tr>
-						<td>Enter Your Name:</td><td><input type="text" name="buyer_name" 
-							value="<?php if (isset($_POST['buyer_name'])) echo $_POST['buyer_name']; ?>"></td>
+						<td>Enter your name:</td><td><input type="text" name="buyer_name" 
+							value="<?php if (isset($_POST['buyer_name'])) echo $_POST['buyer_name']; ?>"></td> <!--The PHP statements contained within this <input> set the text values to what they were if the user is trying to resubmit -->
 						</tr>
 					</table>
 					<p><input type="submit"></p>
