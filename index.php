@@ -85,7 +85,7 @@
 				</script>
 			</table>
 					
-			<p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Flame Pillar, Cannon Jump Kick, and Echo Reflector.</p>
+			<!-- <p><h2>Note:</h2>Sans is a light fighter using the moves Laser Blaze, Flame Pillar, Cannon Jump Kick, and Echo Reflector.</p> -->
 			<br>
 			<br>
 		</div>
